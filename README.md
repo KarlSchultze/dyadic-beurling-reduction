@@ -6,61 +6,61 @@
 
 Let
 
-\[
+$$
 \mathcal H=L^2((1,\infty),y^{-2}dy),
-\]
+$$
 
 and
 
-\[
+$$
 F_\alpha(y)=\alpha\lfloor y\rfloor-\lfloor \alpha y\rfloor.
-\]
+$$
 
-For an integer denominator \(Q\), set
+For an integer denominator $Q$, set
 
-\[
+$$
 V_Q=\operatorname{span}\{F_{a/Q}:1\le a\le Q-1\},
 \qquad
 r_Q=(I-P_Q)1,
 \qquad
 x_Q=\|r_Q\|^2.
-\]
+$$
 
 Define the reciprocal subspace
 
-\[
+$$
 \mathcal R_Q=\operatorname{span}\{F_{1/n}:2\le n\le Q\},
-\]
+$$
 
 and
 
-\[
+$$
 d_Q=\operatorname{dist}_{\mathcal H}(1,\mathcal R_Q).
-\]
+$$
 
 The note proves the dichotomy
 
-\[
+$$
 x_Q\le 4d_Q^2
-\]
+$$
 
 or
 
-\[
+$$
 x_Q-x_{\operatorname{lcm}(1,\dots,Q)}\ge \frac14x_Q^2.
-\]
+$$
 
-Consequently, if \(d_Q\to0\), then \(x_Q\to0\) along a refinement chain, and RH follows by the Nyman--Beurling criterion.
+Consequently, if $d_Q\to0$, then $x_Q\to0$ along a refinement chain, and RH follows by the Nyman--Beurling criterion.
 
 ## Endpoint
 
-Under the isometry \(x=1/y\),
+Under the isometry $x=1/y$,
 
-\[
+$$
 F_{1/n}(1/x)=\left\{\frac1{nx}\right\}-\frac1n\left\{\frac1x\right\}.
-\]
+$$
 
-Thus the remaining condition \(d_Q\to0\) is the integer Beurling / Nyman--Báez-Duarte approximation endpoint. This is the RH-level obstruction, not a technical lemma supplied by the note.
+Thus the remaining condition $d_Q\to0$ is the integer Beurling / Nyman--Báez-Duarte approximation endpoint. This is the RH-level obstruction, not a technical lemma supplied by the note.
 
 ## Files
 
@@ -77,7 +77,7 @@ Thus the remaining condition \(d_Q\to0\) is the integer Beurling / Nyman--Báez-
 
 ## Suggested citation
 
-Schultze, Karl. *A Dyadic-to-Integer Beurling Reduction for a Reciprocal Nyman--Beurling Refinement.* Preliminary research note, v0.1.2, 2026.
+Schultze, Karl. *A Dyadic-to-Integer Beurling Reduction for a Reciprocal Nyman--Beurling Refinement.* Preliminary research note, v0.1.3, 2026.
 
 ## Transparency
 
@@ -92,4 +92,3 @@ This repository uses a dual-license structure:
 - Code and build files: MIT License, SPDX `MIT`.
 
 See `LICENSE.md`, `LICENSE-DOCS.md`, `LICENSE-CODE.md`, and `NOTICE.md` for details.
-# dyadic-beurling-reduction
