@@ -1,0 +1,327 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  pdftitle={A Dyadic-to-Integer Beurling Reduction for a Reciprocal Nyman--Beurling Refinement},
+  pdfauthor={Karl Schultze}
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+
+\newcommand{\Hcal}{\mathcal H}
+\newcommand{\Ucal}{\mathcal U}
+\newcommand{\Rcal}{\mathcal R}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\lcm}{\operatorname{lcm}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\one}{\mathbf 1}
+
+\title{A Dyadic-to-Integer Beurling Reduction\\for a Reciprocal Nyman--Beurling Refinement}
+\author{Karl Schultze\\\small Preliminary research note, v0.1}
+\date{June 15, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fbox{\begin{minipage}{0.92\textwidth}
+\textbf{Claim status.} This note is \emph{not} a proof of the Riemann Hypothesis. It proves a structural reduction from a dyadic reciprocal no-stalling problem to an integer Beurling/Nyman--Báez-Duarte approximation distance. The remaining input, that this integer distance tends to zero, is the known Riemann-Hypothesis-level Nyman--Beurling/Báez-Duarte obstruction.
+\end{minipage}}
+\end{center}
+
+\begin{abstract}
+We study a dyadic Nyman--Beurling approximation scheme in the Hilbert space
+\[
+\Hcal=L^2((1,\infty),y^{-2}\,dy)
+\]
+with Beurling atoms
+\[
+F_\alpha(y)=\alpha\lfloor y\rfloor-\lfloor \alpha y\rfloor.
+\]
+For a denominator $Q$, let
+\[
+V_Q=\Span\{F_{a/Q}:1\le a\le Q-1\},\qquad r_Q=(I-P_Q)1,\qquad x_Q=\|r_Q\|^2.
+\]
+We introduce the reciprocal subspace
+\[
+\Rcal_Q=\Span\{F_{1/n}:2\le n\le Q\}.
+\]
+Since $F_{1/n}\in V_{\Lambda_Q}$ for $\Lambda_Q=\lcm(1,\dots,Q)$, the reciprocal subspace gives an admissible refinement of $V_Q$. We prove a projection dichotomy: if
+\[
+d_Q=\dist_{\Hcal}(1,\Rcal_Q),
+\]
+then either $x_Q\le 4d_Q^2$, or
+\[
+x_Q-x_{\Lambda_Q}\ge \frac14 x_Q^2.
+\]
+Consequently, if $d_Q\to0$, then $x_Q\to0$ along the refinement chain $Q\mapsto \Lambda_Q$, and the Nyman--Beurling criterion gives RH. Under the isometry $x=1/y$, the atoms $F_{1/n}$ become the pole-cancelled integer Beurling functions
+\[
+F_{1/n}(1/x)=\left\{\frac1{nx}\right\}-\frac1n\left\{\frac1x\right\}.
+\]
+Thus the final obstruction is the integer Beurling/Nyman--Báez-Duarte approximation distance, not a new proof of RH.
+\end{abstract}
+
+\section{Setup}
+
+Let
+\[
+\Hcal=L^2((1,\infty),y^{-2}\,dy)
+\]
+with inner product
+\[
+\langle f,g\rangle=\int_1^\infty f(y)\overline{g(y)}\,\frac{dy}{y^2}.
+\]
+For $0<\alpha<1$, define
+\[
+F_\alpha(y)=\alpha\lfloor y\rfloor-\lfloor \alpha y\rfloor.
+\]
+For a positive integer $Q$, define
+\[
+V_Q=\Span\{F_{a/Q}:1\le a\le Q-1\}.
+\]
+Let $P_Q$ be orthogonal projection onto $V_Q$, and set
+\[
+r_Q=(I-P_Q)1,\qquad x_Q=\|r_Q\|^2.
+\]
+The Nyman--Beurling criterion states, in one of its equivalent forms, that suitable approximation of the constant/indicator function by Beurling functions is equivalent to RH; the integer-dilation strengthening is due to Báez-Duarte \cite{baezduarte2003,baezduarte_arxiv}.
+
+\section{The reciprocal subspace}
+
+Define
+\[
+\Rcal_Q=\Span\{F_{1/n}:2\le n\le Q\}.
+\]
+Let
+\[
+\Lambda_Q=\lcm(1,2,\dots,Q).
+\]
+Since $1/n=(\Lambda_Q/n)/\Lambda_Q$, we have
+\[
+F_{1/n}\in V_{\Lambda_Q},\qquad 2\le n\le Q.
+\]
+Therefore
+\[
+V_Q+\Rcal_Q\subseteq V_{\Lambda_Q}.
+\]
+This observation removes the need for any rounding or binning error: the reciprocal atoms themselves are valid directions in the larger denominator space.
+
+\section{Unit-step visibility}
+
+Let $\Ucal\subset \Hcal$ be the closed subspace of functions constant on each unit interval $[k,k+1)$, $k=1,2,\dots$.
+
+For $k\le y<k+1$, we have
+\[
+F_{1/n}(y)=\frac{k}{n}-\left\lfloor\frac{k}{n}\right\rfloor=\left\{\frac{k}{n}\right\}.
+\]
+Thus $F_{1/n}\in\Ucal$ for every integer $n\ge2$.
+
+\begin{lemma}[Unit-step visibility]
+Let $s_Q=P_{\Ucal}r_Q$. Then
+\[
+\|s_Q\|^2\ge x_Q^2.
+\]
+\end{lemma}
+
+\begin{proof}
+Since $1=P_Q1+r_Q$ and $r_Q\perp V_Q$, we have
+\[
+\langle r_Q,1\rangle=\langle r_Q,P_Q1+r_Q\rangle=x_Q.
+\]
+Since $1\in\Ucal$, it follows that
+\[
+\langle s_Q,1\rangle=\langle P_{\Ucal}r_Q,1\rangle=\langle r_Q,1\rangle=x_Q.
+\]
+By Cauchy--Schwarz,
+\[
+x_Q^2=|\langle s_Q,1\rangle|^2\le \|s_Q\|^2\|1\|^2.
+\]
+But $\|1\|^2=\int_1^\infty y^{-2}\,dy=1$. Hence $\|s_Q\|^2\ge x_Q^2$.
+\end{proof}
+
+\section{The projection dichotomy}
+
+Define
+\[
+d_Q=\dist_{\Hcal}(1,\Rcal_Q).
+\]
+Let $\psi_Q=P_{\Rcal_Q}1$. Then
+\[
+\|1-\psi_Q\|=d_Q,\qquad \|\psi_Q\|\le 1.
+\]
+Since $\Rcal_Q\subset \Ucal$, we have
+\[
+\langle r_Q,\psi_Q\rangle=\langle s_Q,\psi_Q\rangle.
+\]
+Furthermore,
+\[
+\langle s_Q,\psi_Q\rangle=\langle s_Q,1\rangle-\langle s_Q,1-\psi_Q\rangle.
+\]
+Thus
+\[
+|\langle r_Q,\psi_Q\rangle|\ge x_Q-\|s_Q\|d_Q.
+\]
+Since $\|s_Q\|\le\|r_Q\|=\sqrt{x_Q}$,
+\[
+|\langle r_Q,\psi_Q\rangle|\ge x_Q-\sqrt{x_Q}\,d_Q.
+\]
+
+\begin{lemma}[Projection dichotomy]
+For every $Q$, either
+\[
+x_Q\le 4d_Q^2,
+\]
+or
+\[
+x_Q-x_{\Lambda_Q}\ge \frac14 x_Q^2.
+\]
+\end{lemma}
+
+\begin{proof}
+If $d_Q>\frac12\sqrt{x_Q}$, then $x_Q<4d_Q^2$.
+
+Otherwise $d_Q\le \frac12\sqrt{x_Q}$, and therefore
+\[
+|\langle r_Q,\psi_Q\rangle|\ge \frac12 x_Q.
+\]
+Let
+\[
+w_Q=(I-P_Q)\psi_Q.
+\]
+Since $\psi_Q\in\Rcal_Q\subseteq V_{\Lambda_Q}$ and $V_Q\subseteq V_{\Lambda_Q}$, we have
+\[
+w_Q\in V_{\Lambda_Q}\ominus V_Q.
+\]
+Also
+\[
+\langle r_Q,w_Q\rangle=\langle r_Q,\psi_Q\rangle
+\]
+because $r_Q\perp V_Q$, and
+\[
+\|w_Q\|\le\|\psi_Q\|\le1.
+\]
+The projection gain from $V_Q$ to $V_{\Lambda_Q}$ is at least the squared projection onto the direction $w_Q$, hence
+\[
+x_Q-x_{\Lambda_Q}\ge \frac{|\langle r_Q,w_Q\rangle|^2}{\|w_Q\|^2}\ge \frac14x_Q^2.
+\]
+\end{proof}
+
+\begin{theorem}[Dyadic-to-integer Beurling reduction]
+If $d_Q\to0$, then $x_Q\to0$ along the refinement chain $Q_{j+1}=\Lambda_{Q_j}$. Consequently RH follows by the Nyman--Beurling criterion.
+\end{theorem}
+
+\begin{proof}
+Apply the projection dichotomy along $Q_{j+1}=\Lambda_{Q_j}$. If the first alternative occurs infinitely often, then $x_{Q_j}\le 4d_{Q_j}^2\to0$ along a subsequence. Since the distances $x_Q$ are nonincreasing under refinement, this forces convergence along the chain. If the second alternative occurs eventually, then
+\[
+x_{Q_{j+1}}\le x_{Q_j}-\frac14x_{Q_j}^2,
+\]
+which also implies $x_{Q_j}\to0$. Hence $x_Q\to0$ along the chain, and the Nyman--Beurling criterion gives RH.
+\end{proof}
+
+\section{Identification with the integer Beurling distance}
+
+Set $x=1/y$. Then
+\[
+y^{-2}\,dy=-dx,
+\]
+so $\Hcal$ is isometric to $L^2(0,1)$.
+
+Let $\rho(t)=\{t\}=t-\lfloor t\rfloor$. Then
+\begin{align*}
+F_{1/n}(1/x)
+&=\frac1n\left\lfloor\frac1x\right\rfloor-\left\lfloor\frac1{nx}\right\rfloor\\
+&=\frac1n\left(\frac1x-\rho(1/x)\right)-\left(\frac1{nx}-\rho(1/(nx))\right)\\
+&=\rho\left(\frac1{nx}\right)-\frac1n\rho\left(\frac1x\right).
+\end{align*}
+Therefore $d_Q$ is the distance from $1$ to the span of the integer Beurling functions
+\[
+\rho\left(\frac1{nx}\right)-\frac1n\rho\left(\frac1x\right),\qquad 2\le n\le Q.
+\]
+This is the integer Nyman--Báez-Duarte endpoint, written in the pole-cancelled Beurling-function coordinates naturally associated with the atoms $F_{1/n}$.
+
+\section{Mellin formulation}
+
+The Mellin transform identity is
+\[
+\mathcal M F_\alpha(s)=\frac{\zeta(s)}s(\alpha-\alpha^s).
+\]
+Thus
+\[
+\mathcal M F_{1/n}(s)=\frac{\zeta(s)}s\left(\frac1n-\frac1{n^s}\right).
+\]
+On the Plancherel line $s=1/2+it$, the endpoint distance can be written as
+\[
+d_Q^2=\inf_{c_2,\dots,c_Q}\frac1{2\pi}\int_{-\infty}^{\infty}\left|1-\zeta\left(\frac12+it\right)\sum_{n=2}^Q c_n\left(\frac1n-\frac1{n^{1/2+it}}\right)\right|^2\frac{dt}{1/4+t^2}.
+\]
+The remaining approximation problem is therefore a critical-line inverse-zeta approximation problem. Proving $d_Q\to0$ is not supplied by the present note; it is the RH-equivalent Nyman--Beurling/Báez-Duarte obstruction.
+
+\appendix
+\section{Exploratory residue-operator symbol}
+
+This appendix records a formal computation that helps explain why the final obstruction has the Riemann zeta function as its symbol. It is not used in the proof of the reduction theorem.
+
+The orthogonal-complement equations for the unit-step sawtooth functions can be written in terms of a sequence $c=(c_k)$ as
+\[
+\sum_{k\ge1}c_k(k\bmod n)=0,\qquad n\ge2.
+\]
+Comparing the equations for $n$ and $n+1$ gives the triangular system
+\[
+nc_n=\sum_{k>n}\left((k\bmod n)-(k\bmod(n+1))\right)c_k.
+\]
+Writing $d_k=kc_k$ gives
+\[
+d_n=\sum_{k>n}K_{n,k}d_k,
+\]
+where
+\[
+K_{n,k}=\frac{(k\bmod n)-(k\bmod(n+1))}{k}.
+\]
+Testing formally on power modes $d_k=k^{-s}$ gives the asymptotic symbol
+\[
+\kappa(s)=1-\left(1-\frac1s\right)\zeta(s).
+\]
+Formal fixed modes satisfy $\kappa(s)=1$, hence $\zeta(s)=0$ away from the special point $s=1$. The $\ell^2$ threshold for $k^{-s}$ is $\Re(s)>1/2$. This explains why the operator-theoretic obstruction reflects the RH zero-free half-plane. A rigorous use of this symbol in the critical strip would require smoothed Mellin-localized approximate eigenvector estimates.
+
+
+\section*{Author's note}
+
+I am Karl Schultze, writing as an independent mathematical explorer outside a formal academic position. I work in a practical trade and have been rebuilding my mathematical foundations through self-study, with a long-term hope of understanding number theory more deeply.
+
+The Riemann Hypothesis has been a deeply personal problem for me for many years. Earlier in my life, I was drawn to it in a way that was not yet healthy or grounded. Returning to it now has been different: the goal has been to follow the mathematics honestly, distinguish proof from intuition, and understand exactly where my ideas lead.
+
+This note records the endpoint of that attempt. The dyadic reciprocal idea was carried as far as I could take it, and it led to the known B\'aez--Duarte/Nyman--Beurling boundary rather than to an independent proof of RH. That is still meaningful to me, because it gives a clear and honest stopping point.
+
+I have my closure. I tried to the best of my ability to study the Riemann Hypothesis and look for a solution, and I am ready for someone else to take this problem on.
+
+\section*{Claim status and transparency}
+
+This note does not claim to prove RH. It proves a conditional structural reduction to an integer Beurling/Nyman--Báez-Duarte approximation distance. The remaining assertion $d_Q\to0$ is the RH-level approximation problem. This draft was prepared with AI assistance and should be independently verified before citation or formal submission.
+
+\begin{thebibliography}{9}
+
+\bibitem{baezduarte2003}
+L. Báez-Duarte, \emph{A strengthening of the Nyman--Beurling criterion for the Riemann hypothesis}, Rendiconti di Matematica e delle sue Applicazioni, Serie IX, 14 (2003), no. 1, 5--11.
+
+\bibitem{baezduarte_arxiv}
+L. Báez-Duarte, \emph{A strengthening of the Nyman--Beurling criterion for the Riemann Hypothesis}, arXiv:math/0202141.
+
+\bibitem{balazard_deroton}
+M. Balazard and A. de Roton, \emph{Sur un critère de Báez-Duarte pour l'hypothèse de Riemann}, arXiv:0812.1689.
+
+\end{thebibliography}
+
+\end{document}

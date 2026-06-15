@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: "A Dyadic-to-Integer Beurling Reduction for a Reciprocal Nyman--Beurling Refinement"
+message: "If you cite this preliminary research note, please cite the GitHub release or archived version."
+type: report
+authors:
+  - family-names: Schultze
+    given-names: Karl
+version: "0.1.2"
+date-released: "2026-06-15"
+license: "CC-BY-4.0"
