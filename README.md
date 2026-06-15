@@ -54,10 +54,10 @@ Consequently, if $d_Q\to0$, then $x_Q\to0$ along a refinement chain, and RH foll
 
 ## Endpoint
 
-Under the isometry $x=1/y$,
+Under the isometry $x=1/y$, with $\rho(t)$ denoting the fractional part of $t$,
 
 $$
-F_{1/n}(1/x)=\left\{\frac1{nx}\right\}-\frac1n\left\{\frac1x\right\}.
+F_{1/n}(1/x)=\rho(1/(nx))-\frac1n\rho(1/x),
 $$
 
 Thus the remaining condition $d_Q\to0$ is the integer Beurling / Nyman--Báez-Duarte approximation endpoint. This is the RH-level obstruction, not a technical lemma supplied by the note.
@@ -77,11 +77,12 @@ Thus the remaining condition $d_Q\to0$ is the integer Beurling / Nyman--Báez-Du
 
 ## Suggested citation
 
-Schultze, Karl. _A Dyadic-to-Integer Beurling Reduction for a Reciprocal Nyman--Beurling Refinement._ Preliminary research note, v0.1.4, 2026.
+Schultze, Karl. *A Dyadic-to-Integer Beurling Reduction for a Reciprocal Nyman--Beurling Refinement.* Preliminary research note, v0.1.5, 2026.
 
 ## Transparency
 
 This draft was prepared with AI assistance. It should be independently verified before citation, redistribution, or formal submission.
+
 
 ## License
 
