@@ -19,7 +19,7 @@ $$
 For an integer denominator $Q$, set
 
 $$
-V_Q=\operatorname{span}\{F_{a/Q}:1\le a\le Q-1\},
+V_Q=\mathrm{span}\{F_{a/Q}:1\le a\le Q-1\},
 \qquad
 r_Q=(I-P_Q)1,
 \qquad
@@ -29,13 +29,13 @@ $$
 Define the reciprocal subspace
 
 $$
-\mathcal R_Q=\operatorname{span}\{F_{1/n}:2\le n\le Q\},
+\mathcal R_Q=\mathrm{span}\{F_{1/n}:2\le n\le Q\},
 $$
 
 and
 
 $$
-d_Q=\operatorname{dist}_{\mathcal H}(1,\mathcal R_Q).
+d_Q=\mathrm{dist}_{\mathcal H}(1,\mathcal R_Q).
 $$
 
 The note proves the dichotomy
@@ -47,7 +47,7 @@ $$
 or
 
 $$
-x_Q-x_{\operatorname{lcm}(1,\dots,Q)}\ge \frac14x_Q^2.
+x_Q-x_{\mathrm{lcm}(1,\dots,Q)}\ge \frac14x_Q^2.
 $$
 
 Consequently, if $d_Q\to0$, then $x_Q\to0$ along a refinement chain, and RH follows by the Nyman--Beurling criterion.
@@ -77,12 +77,11 @@ Thus the remaining condition $d_Q\to0$ is the integer Beurling / Nyman--Báez-Du
 
 ## Suggested citation
 
-Schultze, Karl. *A Dyadic-to-Integer Beurling Reduction for a Reciprocal Nyman--Beurling Refinement.* Preliminary research note, v0.1.3, 2026.
+Schultze, Karl. _A Dyadic-to-Integer Beurling Reduction for a Reciprocal Nyman--Beurling Refinement._ Preliminary research note, v0.1.4, 2026.
 
 ## Transparency
 
 This draft was prepared with AI assistance. It should be independently verified before citation, redistribution, or formal submission.
-
 
 ## License
 
