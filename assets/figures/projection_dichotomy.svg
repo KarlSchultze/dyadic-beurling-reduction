@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="520" viewBox="0 0 1100 520" role="img" aria-labelledby="title desc">
+  <title id="title">Projection dichotomy flow</title>
+  <desc id="desc">A public-safe diagram of the dyadic residual dichotomy from the deployed note.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#333" />
+    </marker>
+    <style>
+      .box{fill:#f8f8fb;stroke:#333;stroke-width:2;rx:18;ry:18}
+      .small{font: 20px system-ui, -apple-system, Segoe UI, sans-serif; fill:#111}
+      .math{font: italic 24px Georgia, serif; fill:#111}
+      .caption{font: 18px system-ui, -apple-system, Segoe UI, sans-serif; fill:#333}
+      .arrow{stroke:#333;stroke-width:2.2;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect x="40" y="60" width="300" height="140" class="box"/>
+  <text x="190" y="110" text-anchor="middle" class="small">Dyadic residual</text>
+  <text x="190" y="153" text-anchor="middle" class="math">x_Q = ||r_Q||²</text>
+
+  <rect x="400" y="40" width="300" height="175" class="box"/>
+  <text x="550" y="90" text-anchor="middle" class="small">Alternative A</text>
+  <text x="550" y="134" text-anchor="middle" class="math">x_Q ≤ 4 d_Q²</text>
+  <text x="550" y="174" text-anchor="middle" class="caption">controlled by integer endpoint</text>
+
+  <rect x="760" y="40" width="300" height="175" class="box"/>
+  <text x="910" y="90" text-anchor="middle" class="small">Alternative B</text>
+  <text x="910" y="134" text-anchor="middle" class="math">x_Q − x_lcm ≥ x_Q²/4</text>
+  <text x="910" y="174" text-anchor="middle" class="caption">strict refinement drop</text>
+
+  <rect x="395" y="300" width="670" height="135" class="box"/>
+  <text x="730" y="350" text-anchor="middle" class="small">Public endpoint</text>
+  <text x="730" y="392" text-anchor="middle" class="caption">If the integer Beurling / Báez-Duarte distance tends to zero,</text>
+  <text x="730" y="422" text-anchor="middle" class="caption">then the dyadic residuals tend to zero along the refinement chain.</text>
+
+  <path d="M340,130 C365,130 375,128 400,128" class="arrow"/>
+  <path d="M700,128 C725,128 735,128 760,128" class="arrow"/>
+  <path d="M550,215 C555,260 610,285 665,300" class="arrow"/>
+  <path d="M910,215 C905,260 850,285 795,300" class="arrow"/>
+</svg>

@@ -1,93 +1,208 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>A Dyadic-to-Integer Beurling Reduction</title>
-  <meta name="description" content="A preliminary research note reducing a dyadic reciprocal Nyman--Beurling refinement to the integer Beurling/Baez-Duarte approximation endpoint.">
-  <style>
-    :root { --fg:#1f2937; --muted:#4b5563; --bg:#ffffff; --card:#f8fafc; --border:#d1d5db; --accent:#1d4ed8; --warn:#7c2d12; --warnbg:#fff7ed; }
-    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height:1.6; color:var(--fg); background:var(--bg); }
-    main { max-width: 900px; margin: 0 auto; padding: 48px 20px 72px; }
-    h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height:1.1; margin: 0 0 12px; }
-    h2 { margin-top: 42px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
-    .subtitle { font-size: 1.15rem; color: var(--muted); margin-bottom: 24px; }
-    .notice { background: var(--warnbg); border-left: 5px solid var(--warn); padding: 14px 16px; margin: 24px 0; border-radius: 6px; }
-    .card { background: var(--card); border: 1px solid var(--border); padding: 18px; border-radius: 10px; margin: 20px 0; }
-    a { color: var(--accent); }
-    .buttons { display:flex; flex-wrap:wrap; gap:12px; margin: 24px 0; }
-    .button { display:inline-block; border:1px solid var(--accent); color:#fff; background:var(--accent); text-decoration:none; padding:10px 14px; border-radius:8px; font-weight:600; }
-    .button.secondary { background:#fff; color:var(--accent); }
-    code { background:#eef2ff; padding: 0.15em 0.35em; border-radius: 4px; }
-    footer { margin-top: 54px; color: var(--muted); font-size:0.95rem; }
-  </style>
+  <meta name="description" content="A preliminary research note on a reciprocal Nyman--Beurling refinement and its reduction to the integer Beurling/Baez-Duarte endpoint." />
   <script>
-    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$','$$']] } };
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+      svg: { fontCache: 'global' }
+    };
   </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fbfbfd;
+      --fg: #171717;
+      --muted: #555b66;
+      --card: #ffffff;
+      --line: #d7dae0;
+      --accent: #384b7a;
+      --accent-soft: #eef2ff;
+      --warning-bg: #fff8e6;
+      --warning-border: #d9b85f;
+      --warning-fg: #3c2e07;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1117;
+        --fg: #f0f2f7;
+        --muted: #b8bdca;
+        --card: #171a23;
+        --line: #2b3040;
+        --accent: #9bb2ff;
+        --accent-soft: #1b2338;
+        --warning-bg: #2a2110;
+        --warning-border: #8c6b24;
+        --warning-fg: #ffe7a3;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top left, var(--accent-soft), transparent 32rem), var(--bg);
+      color: var(--fg);
+      font: 17px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 3.5rem 1.25rem 4rem;
+    }
+    h1, h2, h3 { line-height: 1.15; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.1rem, 5vw, 4.2rem); margin: 0 0 1rem; }
+    h2 { margin-top: 3rem; font-size: clamp(1.55rem, 3vw, 2.25rem); }
+    h3 { margin-top: 1.6rem; font-size: 1.25rem; }
+    a { color: var(--accent); text-decoration-thickness: 0.08em; text-underline-offset: 0.18em; }
+    .lead { font-size: 1.18rem; color: var(--muted); max-width: 780px; }
+    .claim {
+      border: 1px solid var(--warning-border);
+      background: var(--warning-bg);
+      color: var(--warning-fg);
+      border-radius: 16px;
+      padding: 1rem 1.1rem;
+      margin: 1.4rem 0;
+      font-weight: 650;
+    }
+    .links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0 2.5rem; }
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.5rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--card);
+      padding: 0.4rem 0.9rem;
+      text-decoration: none;
+    }
+    .card {
+      background: color-mix(in srgb, var(--card), transparent 3%);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 1.2rem;
+      margin: 1.2rem 0;
+      box-shadow: 0 12px 35px rgb(0 0 0 / 0.05);
+    }
+    figure { margin: 1.4rem 0; }
+    figure img {
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: white;
+      display: block;
+    }
+    figcaption {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 0.55rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      align-items: start;
+    }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; }
+    .footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1.2rem; }
+  </style>
 </head>
 <body>
 <main>
-  <h1>A Dyadic-to-Integer Beurling Reduction</h1>
-  <p class="subtitle">A preliminary research note on a reciprocal Nyman--Beurling refinement and its reduction to the integer Beurling/Baez-Duarte endpoint.</p>
+  <header>
+    <h1>A Dyadic-to-Integer Beurling Reduction</h1>
+    <p class="lead">A preliminary research note on a reciprocal Nyman--Beurling refinement and its reduction to the integer Beurling/Baez-Duarte endpoint.</p>
+    <div class="claim">Claim status: this work does not claim a proof of the Riemann Hypothesis. It proves a structural reduction to the known RH-level integer Beurling / Baez-Duarte approximation endpoint.</div>
+    <nav class="links" aria-label="Repository links">
+      <a href="paper/dyadic_to_integer_beurling_reduction.pdf">Read the PDF</a>
+      <a href="paper/dyadic_to_integer_beurling_reduction.tex">LaTeX source</a>
+      <a href="docs/CLAIM_STATUS.md">Claim status</a>
+      <a href="https://github.com/KarlSchultze/dyadic-beurling-reduction">GitHub repository</a>
+    </nav>
+  </header>
 
-  <div class="notice">
-    <strong>Claim status:</strong> This work does <strong>not</strong> claim a proof of the Riemann Hypothesis. It proves a structural reduction to the known RH-level integer Beurling / Baez-Duarte approximation endpoint.
-  </div>
-
-  <div class="buttons">
-    <a class="button" href="paper/dyadic_to_integer_beurling_reduction.pdf">Read the PDF</a>
-    <a class="button secondary" href="paper/dyadic_to_integer_beurling_reduction.tex">LaTeX source</a>
-    <a class="button secondary" href="https://github.com/KarlSchultze/dyadic-beurling-reduction">GitHub repository</a>
-  </div>
-
-  <h2>Main idea</h2>
-  <p>
-    Let $\mathcal H=L^2((1,\infty),y^{-2}dy)$ and define Beurling atoms
+  <section id="main-idea">
+    <h2>Main idea</h2>
+    <p>Let $\mathcal H=L^2((1,\infty),y^{-2}dy)$ and define Beurling atoms</p>
     $$F_\alpha(y)=\alpha\lfloor y\rfloor-\lfloor \alpha y\rfloor.$$
-    For dyadic denominators $Q$, define $V_Q$ as the span of the atoms $F_{a/Q}$ and let $r_Q$ be the residual of $1$ after projection onto $V_Q$, with $x_Q=\|r_Q\|^2$.
-  </p>
-  <p>
-    The note studies the reciprocal subspace generated by $F_{1/n}$ for $2\le n\le Q$. Since these reciprocal atoms live in the larger denominator space $V_{\mathrm{lcm}(1,\dots,Q)}$, they can be used as an admissible refinement direction.
-  </p>
+    <p>For dyadic denominators $Q$, define $V_Q$ as the span of the atoms $F_{a/Q}$ and let $r_Q$ be the residual of $1$ after projection onto $V_Q$, with $x_Q=\|r_Q\|^2$.</p>
+    <p>The note studies the reciprocal subspace generated by $F_{1/n}$ for $2\le n\le Q$. Since these reciprocal atoms live in the larger denominator space $V_{\mathrm{lcm}(1,\dots,Q)}$, they can be used as an admissible refinement direction.</p>
+  </section>
 
-  <h2>Projection dichotomy</h2>
-  <p>
-    Let $d_Q$ be the distance from $1$ to the reciprocal integer Beurling subspace. The main reduction proves that either
-  </p>
-  $$x_Q\le 4d_Q^2,$$
-  <p>or</p>
-  $$x_Q-x_{\mathrm{lcm}(1,\dots,Q)}\ge \frac14x_Q^2.$$
-  <p>
-    Thus, if the integer Beurling distance $d_Q\to0$, then the dyadic residuals $x_Q\to0$, and RH follows by the Nyman--Beurling criterion.
-  </p>
+  <section id="public-visuals">
+    <h2>Public visual summary</h2>
+    <p>These figures are explanatory only. They summarize the deployed reduction and do not include any later contradiction-route research.</p>
 
-  <h2>Endpoint</h2>
-  <p>
-    Under the isometry $x=1/y$,
-  </p>
-  $$F_{1/n}(1/x)=\rho(1/(nx))-\frac1n\rho(1/x),$$
-  <p>
-    where $\rho(t)$ denotes the fractional part of $t$. Therefore the endpoint is the integer Beurling / Baez-Duarte approximation criterion, not a new independent proof of RH.
-  </p>
+    <figure>
+      <img src="assets/figures/projection_dichotomy.svg" alt="Diagram of the projection dichotomy: either x_Q is controlled by 4 d_Q squared, or refinement gives a strict residual drop." />
+      <figcaption>The dichotomy from the public note: either the dyadic residual is controlled by the reciprocal integer distance, or passing to the lcm-refined denominator gives a definite drop.</figcaption>
+    </figure>
 
-  <h2>Files</h2>
-  <ul>
-    <li><a href="paper/dyadic_to_integer_beurling_reduction.pdf"><code>paper/dyadic_to_integer_beurling_reduction.pdf</code></a> — main research note.</li>
-    <li><a href="paper/dyadic_to_integer_beurling_reduction.tex"><code>paper/dyadic_to_integer_beurling_reduction.tex</code></a> — LaTeX source.</li>
-    <li><a href="docs/CLAIM_STATUS.md"><code>docs/CLAIM_STATUS.md</code></a> — claim status and limitations.</li>
-    <li><a href="docs/REVIEW_REQUEST.md"><code>docs/REVIEW_REQUEST.md</code></a> — reviewer-facing summary.</li>
-    <li><a href="docs/AUTHOR_NOTE.md"><code>docs/AUTHOR_NOTE.md</code></a> — author note and motivation.</li>
-  </ul>
+    <figure>
+      <img src="assets/figures/reciprocal_atoms.svg" alt="Line plot of reciprocal Beurling atoms for n equals 2, 3, and 5 on x in zero to one." />
+      <figcaption>Endpoint atoms after the isometry $x=1/y$: $F_{1/n}(1/x)=\rho(1/(nx))-n^{-1}\rho(1/x)$. The step structure is visible without adding any new proof claim.</figcaption>
+    </figure>
+  </section>
 
-  <h2>Request for review</h2>
-  <p>
-    Feedback is especially welcome on the unit-step visibility lemma, the projection dichotomy, and the identification of the endpoint with the integer Beurling/Baez-Duarte framework.
-  </p>
+  <section id="projection-dichotomy">
+    <h2>Projection dichotomy</h2>
+    <p>Let $d_Q$ be the distance from $1$ to the reciprocal integer Beurling subspace. The main reduction proves that either</p>
+    $$x_Q\le 4d_Q^2,$$
+    <p>or</p>
+    $$x_Q-x_{\mathrm{lcm}(1,\dots,Q)}\ge \frac14x_Q^2.$$
+    <p>Thus, if the integer Beurling distance $d_Q\to0$, then the dyadic residuals $x_Q\to0$, and RH follows by the Nyman--Beurling criterion.</p>
+  </section>
 
-  <footer>
-    <p>Prepared by Karl Schultze. This preliminary note is shared for mathematical review and discussion.</p>
-  </footer>
+  <section id="endpoint">
+    <h2>Endpoint</h2>
+    <p>Under the isometry $x=1/y$,</p>
+    $$F_{1/n}(1/x)=\rho(1/(nx))-\frac1n\rho(1/x),$$
+    <p>where $\rho(t)$ denotes the fractional part of $t$. Therefore the endpoint is the integer Beurling / Baez-Duarte approximation criterion, not a new independent proof of RH.</p>
+  </section>
+
+  <section id="g-visualization">
+    <h2>Related numerical visualization of $G(s)$</h2>
+    <div class="card">
+      <p>This section is included as a visual supplement to the earlier reversal-across-the-decimal exploration. It is not used in the dyadic-to-integer reduction above.</p>
+      <p>For a fixed digit length $k$, let $\operatorname{rev}_k(n)$ denote fixed-width digit reversal. The plotted finite-block model is</p>
+      $$G_K(s)=\sum_{k=1}^{K}\sum_{10^{k-1}\le n<10^k}\left(\frac{\operatorname{rev}_k(n)}{10^k n}\right)^s.$$
+      <p>Each $G_K$ is an entire finite sum. The plots below should be read as a numerical continuation picture for finite approximants, not as a theorem proving analytic continuation of the infinite series.</p>
+    </div>
+
+    <div class="grid">
+      <figure>
+        <img src="assets/figures/g_finite_block_real_axis.svg" alt="Finite-block G model plotted along the real axis from sigma equals negative one to three." />
+        <figcaption>A real-axis slice of $G_4(\sigma)$, shown with signed logarithmic scaling so growth on the left of $\sigma=1$ remains visible.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="assets/figures/g_finite_block_heatmap.png" alt="Heatmap of log absolute value of the finite-block G model over complex s equals sigma plus i t." />
+        <figcaption>A complex-plane magnitude plot for $G_3(s)$ over $-1\le \Re(s)\le 3$. The dashed line marks the original convergence boundary $\Re(s)=1$ for the infinite series model.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="files">
+    <h2>Files</h2>
+    <ul>
+      <li><a href="paper/dyadic_to_integer_beurling_reduction.pdf"><code>paper/dyadic_to_integer_beurling_reduction.pdf</code></a> — main research note.</li>
+      <li><a href="paper/dyadic_to_integer_beurling_reduction.tex"><code>paper/dyadic_to_integer_beurling_reduction.tex</code></a> — LaTeX source.</li>
+      <li><a href="docs/CLAIM_STATUS.md"><code>docs/CLAIM_STATUS.md</code></a> — claim status and limitations.</li>
+      <li><a href="docs/REVIEW_REQUEST.md"><code>docs/REVIEW_REQUEST.md</code></a> — reviewer-facing summary.</li>
+      <li><a href="docs/AUTHOR_NOTE.md"><code>docs/AUTHOR_NOTE.md</code></a> — author note and motivation.</li>
+      <li><a href="docs/GRAPH_BOUNDARY.md"><code>docs/GRAPH_BOUNDARY.md</code></a> — public graph boundary and figure notes.</li>
+    </ul>
+  </section>
+
+  <section id="review">
+    <h2>Request for review</h2>
+    <p>Feedback is especially welcome on the unit-step visibility lemma, the projection dichotomy, and the identification of the endpoint with the integer Beurling/Baez-Duarte framework.</p>
+  </section>
+
+  <p class="footer">Prepared by Karl Schultze. This preliminary note is shared for mathematical review and discussion.</p>
 </main>
 </body>
 </html>
